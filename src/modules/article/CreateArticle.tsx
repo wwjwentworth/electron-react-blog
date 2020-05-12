@@ -1,11 +1,13 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
-import { Store } from 'antd/lib/form/interface'
+import { Store } from 'antd/lib/form/interface';
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
 
 import BasePage from '@/components/BasePage';
 
+import ArticleService from '@/domains/article/ArticleService';
+import { ArticleResponse } from '@/domains/article/interface'
 const { TextArea } = Input;
 interface CreateArticleProps {
 };
@@ -15,11 +17,11 @@ interface CreateArticleState {
 };
 const formItemLayout = {
   labelCol: {
-    xs: { span: 4 },
-    sm: { span: 2 },
+    xs: { span: 2 },
+    sm: { span: 4 },
   },
   wrapperCol: {
-    xs: { span: 4 },
+    xs: { span: 2 },
     sm: { span: 16 },
   },
 };
@@ -50,6 +52,9 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
 
   handleFinish = (values: Store) => {
     console.log(values)
+    ArticleService.createArticle(values).then((res: ArticleResponse) => {
+
+    })
   }
 
   handleChangeEditor = ({html, text}: { html: string, text: string}) => {
@@ -87,10 +92,7 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
               ]}
               {...formItemLayout}
             >
-              <Input
-                placeholder="请输入文章标题"
-                autoComplete="off"
-              />
+              <Input placeholder="请输入文章标题" />
             </Form.Item>
             <Form.Item
               name="description"

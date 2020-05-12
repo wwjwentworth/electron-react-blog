@@ -12,8 +12,8 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { message } from 'antd';
 
 import GStorage from '@/common/utils/g_storage';
-import { HOST, VERSION, USER_TYPE, PLATFORM, TIME_OUT, XM_RULE } from '@/domains/basic-domain/constants';
-import { HeadersOptionInterface, AxiosServiceImplements } from '@/domains/basic-domain/interface';
+import { HOST, VERSION, USER_TYPE, PLATFORM, TIME_OUT, XM_RULE } from '@/domains/basic/constants';
+import { HeadersOptionInterface, AxiosServiceImplements } from '@/domains/basic/interface';
 
 declare var Promise: any;
 

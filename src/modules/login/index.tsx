@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import './style.less';
 
-import AccountService from '@/domains/account-domain/AccountService';
+import AccountService from '@/domains/account/AccountService';
 
 function Login(props: any) {
   async function handleLogin() {

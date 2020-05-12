@@ -10,7 +10,7 @@
 import _ from 'underscore';
 
 import axiosService from '@/common/service/axios';
-import { XMServiceImplements } from '@/domains/basic-domain/interface';
+import { XMServiceImplements } from '@/domains/basic/interface';
 
 class XMService implements XMServiceImplements {
 

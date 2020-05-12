@@ -7,7 +7,7 @@
  * @FilePath: /wheat-web-demo/src/domains/basic-domain/constants.ts
  * @Copyright © 2020 杭州杰竞科技有限公司 版权所有
  */
-import { MapInterface } from '@/domains/basic-domain/interface'
+import { MapInterface } from '@/domains/basic/interface'
 
 const EV: string = process.env.DEPLOY_ENV || 'dev'; // 默认是 dev 环境
 

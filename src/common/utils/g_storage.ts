@@ -9,7 +9,7 @@
  */
 
 import XMStorage from '@/common/utils/storage';
-import { PREFIX } from '@/domains/basic-domain/constants';
+import { PREFIX } from '@/domains/basic/constants';
 
 class GStorage {
   get token() {

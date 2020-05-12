@@ -6,7 +6,7 @@
  * @Description: 
  */
 
-import { User } from '@/domains/account-domain/interface';
+import { User } from '@/domains/account/interface';
 
 export const translatorUserInfo = (data: User) => {
 

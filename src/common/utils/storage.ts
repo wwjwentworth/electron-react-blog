@@ -7,7 +7,7 @@
  * @FilePath: /wheat-web-demo/src/common/js/storage.ts
  * @Copyright © 2020 杭州杰竞科技有限公司 版权所有
  */
-import { XMStorageImplements } from '@/domains/basic-domain/interface';
+import { XMStorageImplements } from '@/domains/basic/interface';
 
 const LS: Storage = window.localStorage;
 

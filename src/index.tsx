@@ -2,7 +2,7 @@
  * @Author: 吴文洁
  * @Date: 2020-04-27 20:35:34
  * @LastEditors: 吴文洁
- * @LastEditTime: 2020-05-11 17:44:07
+ * @LastEditTime: 2020-05-12 14:49:26
  * @Description:
  */
 
@@ -15,6 +15,7 @@ import { createBrowserHistory } from 'history';
 import RootRoutes from '@/routes/RootRoutes';
 
 import 'antd/dist/antd.less';
+import 'react-markdown-editor-lite/lib/index.css';
 import '@/common/less/index.less';
 
 const history = createBrowserHistory();

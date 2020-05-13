@@ -1,8 +1,8 @@
 /*
  * @Author: 陈剑宇
  * @Date: 2020-04-30 10:32:24
- * @LastEditTime: 2020-05-07 17:03:38
- * @LastEditors: 陈剑宇
+ * @LastEditTime: 2020-05-13 16:00:38
+ * @LastEditors: 吴文洁
  * @Description: 接口请求
  * @FilePath: /wheat-web-demo/src/common/service/http.ts
  * @Copyright © 2020 杭州杰竞科技有限公司 版权所有
@@ -38,7 +38,11 @@ class XMService implements XMServiceImplements {
 
   post(url: string, data?: { [propName: string]: any }, option?: any) {
     this.removeNull(data);
-    const optionConfig = Object.assign({ headers: { 'content-type': 'application/json;charset=UTF-8' } }, option)
+    const optionConfig = Object.assign({
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      } 
+    }, option)
     return this.XMAxios.post(url, data, optionConfig);
   }
 

@@ -2,7 +2,7 @@
  * @Author: 吴文洁
  * @Date: 2020-04-28 18:10:07
  * @LastEditors: 吴文洁
- * @LastEditTime: 2020-05-13 11:57:24
+ * @LastEditTime: 2020-05-13 15:25:02
  * @Description: 系统interface
  */
 import { AxiosInstance } from 'axios';
@@ -17,7 +17,7 @@ export interface AxiosResponseError {
 
 // axios.ts
 export interface HeadersOptionInterface {
-  token: string | null | undefined,
+  token?: string | null | undefined,
 }
 
 export interface AxiosServiceImplements {

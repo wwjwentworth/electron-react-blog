@@ -1,18 +1,17 @@
 /*
  * @Author: 陈剑宇
  * @Date: 2020-04-29 18:35:09
- * @LastEditTime: 2020-05-07 14:54:20
- * @LastEditors: 陈剑宇
+ * @LastEditTime: 2020-05-13 11:53:37
+ * @LastEditors: 吴文洁
  * @Description: axios
  * @FilePath: /wheat-web-demo/src/common/js/axios.ts
- * @Copyright © 2020 杭州杰竞科技有限公司 版权所有
  */
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { message } from 'antd';
 
 import GStorage from '@/common/utils/g_storage';
-import { HOST, VERSION, USER_TYPE, PLATFORM, TIME_OUT, XM_RULE } from '@/domains/basic/constants';
+import { HOST, TIME_OUT} from '@/domains/basic/constants';
 import { HeadersOptionInterface, AxiosServiceImplements } from '@/domains/basic/interface';
 
 declare var Promise: any;
@@ -22,10 +21,6 @@ class axiosService implements AxiosServiceImplements {
     baseURL: HOST,
     timeout: TIME_OUT,
     headers: {
-      'p': PLATFORM,
-      'v': VERSION,
-      'userType': USER_TYPE,
-      'xmrule': XM_RULE,
       'content-type': 'application/x-www-form-urlencoded'
     }
   });
@@ -43,10 +38,6 @@ class axiosService implements AxiosServiceImplements {
     this.axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
       let headersOption: HeadersOptionInterface = {
         'token': GStorage.token || '',
-        'instId': GStorage.instID || '',
-        'bizAccountId': GStorage.aID || '',
-        'cid': GStorage.cID || '',
-        'uid': GStorage.uID || '',
       }
       config.headers = Object.assign({}, config.headers, headersOption);
       return config;
@@ -83,9 +74,6 @@ class axiosService implements AxiosServiceImplements {
       errorMessage = 'Oops! 500错误 ';
     } else if (status === 400) {
       errorMessage = 'Oops! 400错误 操作异常';
-    } else if (status === 555) {
-      window.location.href = 'https://www.xiaomai5.com/updating.html'
-      return;
     } else {
       errorMessage = '服务器出错了';
     }

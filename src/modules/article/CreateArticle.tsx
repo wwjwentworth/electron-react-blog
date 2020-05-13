@@ -1,3 +1,11 @@
+/*
+ * @Author: 吴文洁
+ * @Date: 2020-05-13 11:05:36
+ * @LastEditors: 吴文洁
+ * @LastEditTime: 2020-05-13 13:44:47
+ * @Description: 
+ */
+
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { Store } from 'antd/lib/form/interface';
@@ -7,14 +15,11 @@ import MarkdownIt from 'markdown-it';
 import BasePage from '@/components/BasePage';
 
 import ArticleService from '@/domains/article/ArticleService';
-import { ArticleResponse } from '@/domains/article/interface'
+import { ArticleResponse } from '@/domains/article/interface';
+
+import './CreateArticle.less';
+
 const { TextArea } = Input;
-interface CreateArticleProps {
-};
-interface CreateArticleState {
-  mode: 'preview' | 'write',     // 模式：预览还是编辑
-  html: string;
-};
 const formItemLayout = {
   labelCol: {
     xs: { span: 2 },
@@ -38,10 +43,20 @@ const mdEditorConfig = {
   }
 };
 
+interface CreateArticleProps {
+};
+interface CreateArticleState {
+  mode: 'preview' | 'write',     // 模式：预览还是编辑
+  title: string;
+  markdown: string;
+  description?: string;
+};
+
 class CreateArticle extends React.Component<CreateArticleProps, CreateArticleState> {
   state: CreateArticleState = {
     mode: 'preview',
-    html: 'hello'
+    title: '作业标题',
+    markdown: 'hello',
   }
 
   mdParser: MarkdownIt = new MarkdownIt({
@@ -51,14 +66,21 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
   });
 
   handleFinish = (values: Store) => {
-    console.log(values)
     ArticleService.createArticle(values).then((res: ArticleResponse) => {
 
     })
   }
 
-  handleChangeEditor = ({html, text}: { html: string, text: string}) => {
-    this.setState({ html });
+  handleChangeMarkdown = ({html, text}: { html: string, text: string}) => {
+    this.setState({ markdown: html });
+  }
+
+  handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ title: event.target.value})
+  }
+
+  handleChangeDesc = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    this.setState({ description: event.target.value})
   }
 
   renderHTML = (text: string) => {
@@ -66,7 +88,7 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
   }
 
   render() {
-    const { mode, html } = this.state;
+    const { mode, markdown } = this.state;
     return (
       <BasePage
         firstRoute={{
@@ -92,45 +114,42 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
               ]}
               {...formItemLayout}
             >
-              <Input placeholder="请输入文章标题" />
+              <Input
+                autoComplete="off"
+                placeholder="请输入文章标题"
+                onChange={this.handleChangeTitle}
+              />
             </Form.Item>
             <Form.Item
-              name="description"
               label="文章简介"
               {...formItemLayout}
             >
-              <TextArea placeholder="请输入文章简介"></TextArea>
+              <TextArea
+                placeholder="请输入文章简介"
+                onChange={this.handleChangeDesc}
+              ></TextArea>
             </Form.Item>
             <Form.Item
-              name="markdown"
               label="文章内容"
-              rules={[
-                {
-                  required: true,
-                  message: '请输入文章内容'
-                }
-              ]}
               {...formItemLayout}
             >
               <Choose>
                 <When condition={mode==='preview'}>
                   <MdEditor
-                    renderHTML={this.renderHTML}
+                    renderHTML={this.renderHTML} 
                     config={mdEditorConfig}
-                    onChange={this.handleChangeEditor}
+                    onChange={this.handleChangeMarkdown}
                   />
                 </When>
                 <Otherwise>
                   <div
                     className="preview-section"
-                    dangerouslySetInnerHTML={{__html: this.mdParser.render(html)}}
+                    dangerouslySetInnerHTML={{__html: this.mdParser.render(markdown)}}
                   />
                 </Otherwise>
               </Choose>
             </Form.Item>
-            <Form.Item
-              
-            >
+            <Form.Item>
               <Button type="primary" htmlType="submit">提交</Button>
             </Form.Item>
           </Form>

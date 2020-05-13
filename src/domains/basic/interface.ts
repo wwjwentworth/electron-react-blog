@@ -1,8 +1,8 @@
 /*
  * @Author: 吴文洁
  * @Date: 2020-04-28 18:10:07
- * @LastEditors: 陈剑宇
- * @LastEditTime: 2020-05-07 15:20:56
+ * @LastEditors: 吴文洁
+ * @LastEditTime: 2020-05-13 11:57:24
  * @Description: 系统interface
  */
 import { AxiosInstance } from 'axios';
@@ -18,10 +18,6 @@ export interface AxiosResponseError {
 // axios.ts
 export interface HeadersOptionInterface {
   token: string | null | undefined,
-  uid: string | null | undefined,
-  cid: string | null | undefined,
-  bizAccountId: string | null | undefined,
-  instId: string | null | undefined
 }
 
 export interface AxiosServiceImplements {

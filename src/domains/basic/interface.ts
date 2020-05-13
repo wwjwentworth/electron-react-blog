@@ -2,7 +2,7 @@
  * @Author: 吴文洁
  * @Date: 2020-04-28 18:10:07
  * @LastEditors: 吴文洁
- * @LastEditTime: 2020-05-13 15:25:02
+ * @LastEditTime: 2020-05-13 16:09:22
  * @Description: 系统interface
  */
 import { AxiosInstance } from 'axios';
@@ -23,16 +23,6 @@ export interface HeadersOptionInterface {
 export interface AxiosServiceImplements {
   getAxiosInstance: () => AxiosInstance,
   initAxiosInterceptors: () => void,
-}
-
-// constants.ts
-export interface MapInterface {
-  dev: string,
-  dev1: string,
-  rc: string,
-  gray: string,
-  prod: string,
-  [key: string]: any,
 }
 
 export interface XMStorageImplements {

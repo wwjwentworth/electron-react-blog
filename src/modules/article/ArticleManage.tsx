@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { Input, Form, DatePicker, Button, Table } from 'antd';
+import { Input, Form, DatePicker, Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 import BasePage from '@/components/BasePage';
 import { Article } from '@/domains/article/interface';
@@ -92,18 +93,15 @@ class ArticlePage extends React.Component<ArticlePageProps, ArticlePageState> {
         <div className="filter-section">
           <Form layout="inline">
             <Form.Item
-              label="搜索文章标题"
             >
               <Search
                 placeholder="请输入文章标题"
                 style={{width: '312px'}}
               />
             </Form.Item>
-            <Form.Item
-              label="创建时间"
-            >
-              <DatePicker
-                placeholder="请选择创建时间"
+            <Form.Item>
+              <DatePicker.RangePicker
+                placeholder={["开始时间", "结束时间"]}
                 style={{width: '312px'}}
               />
             </Form.Item>
@@ -111,19 +109,32 @@ class ArticlePage extends React.Component<ArticlePageProps, ArticlePageState> {
             <Button type="primary">重置</Button>
           </Form>
         </div>
-        <div className="operate-section">
-          <Button
-            type="primary"
-            onClick={this.handleCreateArticle}
-          >+ 新增文章</Button>
-          <Button type="danger">删除全部</Button>
-        </div>
         <div className="content-section">
-          <Table
+          <div className="article-list">
+            {
+              dataSource.map((article, index) => {
+                return (
+                  <div className="article-list__item" key={`articl_${index}`}>
+                    <div className="article-cover"></div>
+                    <div className="article-title">{article.title}</div>
+                    <div className="article-like"></div>
+                    <div className="article-desc">{article.title}</div>
+                  </div>
+                )
+              })
+            }
+            <div
+              className="add-new-article article-list__item"
+              onClick={this.handleCreateArticle}
+            >
+              <PlusOutlined />
+            </div>
+          </div>
+          {/* <Table
             rowKey={"_id"}
             dataSource={dataSource}
             columns={this.getColumns()}
-          />
+          /> */}
         </div>
       </div>
       </BasePage>

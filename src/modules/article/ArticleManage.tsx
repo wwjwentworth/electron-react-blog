@@ -1,36 +1,39 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Input, Form, DatePicker, Button, Table } from 'antd';
+
 import BasePage from '@/components/BasePage';
+import { Article } from '@/domains/article/interface';
+import ArticleService from '@/domains/article/ArticleService';
 
 import './ArticleManage.less';
 
 const { Search } = Input;
 
-interface Record {
-  title: string;
-  description: string;
-  cover: string;
-  publishTime: Date,
-  createdTime: Date
-}
 
 interface Column {
   key: string;
   dataIndex: any;
   title: string;
-  render?: (text: string, record: Record) => React.ReactNode;
+  render?: (text: string, record: Article) => React.ReactNode;
 }
 interface ArticlePageProps extends RouteComponentProps {};
 
 interface ArticlePageState {
-  dataSource: [];
+  dataSource: Article[];
 }
 
 class ArticlePage extends React.Component<ArticlePageProps, ArticlePageState> {
 
   state: ArticlePageState = {
     dataSource: []
+  }
+
+  componentDidMount() {
+    ArticleService.getArticles().then((res: Result<Article>) => {
+      const { records = [] } = res;
+      this.setState({ dataSource: records });
+    });
   }
 
   getColumns = () => {
@@ -46,7 +49,7 @@ class ArticlePage extends React.Component<ArticlePageProps, ArticlePageState> {
       title: '封面',
       key: 'cover',
       dataIndex: 'cover',
-      render: (cover: string, record: Record) => ( <span>1212</span>)
+      render: (cover: string, record: Article) => ( <span>1212</span>)
     }, {
       title: '发布日期',
       key: 'publishTime',
@@ -56,10 +59,18 @@ class ArticlePage extends React.Component<ArticlePageProps, ArticlePageState> {
       key: 'createdTime',
       dataIndex: 'createdTime'
     }, {
-      title: '创建日期',
+      title: '操作',
       key: 'operate',
       dataIndex: 'operate',
-      render: (cover: string, record: Record) => ( <span>1212</span>)
+      render: (cover: string, record: Article) => {
+        return (
+          <div className="operate">
+            <span className="operate__item">编辑</span>
+            <span className="divider">|</span>
+            <span className="operate__item">删除</span>
+          </div>
+        )
+      }
     }];
     return columns;
   }
@@ -104,11 +115,12 @@ class ArticlePage extends React.Component<ArticlePageProps, ArticlePageState> {
           <Button
             type="primary"
             onClick={this.handleCreateArticle}
-          >+ Add New Article</Button>
-          <Button> Delete All</Button>
+          >+ 新增文章</Button>
+          <Button type="danger">删除全部</Button>
         </div>
         <div className="content-section">
           <Table
+            rowKey={"_id"}
             dataSource={dataSource}
             columns={this.getColumns()}
           />

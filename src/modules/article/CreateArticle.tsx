@@ -2,22 +2,23 @@
  * @Author: 吴文洁
  * @Date: 2020-05-13 11:05:36
  * @LastEditors: 吴文洁
- * @LastEditTime: 2020-05-13 13:46:41
+ * @LastEditTime: 2020-05-14 16:31:50
  * @Description: 
  */
 
 import React from 'react';
-import { Form, Input, Button } from 'antd';
-import { Store } from 'antd/lib/form/interface';
+import { RouteComponentProps } from 'react-router-dom';
+import { RcFile } from 'antd/lib/upload/interface';
+import { Form, Input, Button, message, Upload } from 'antd';
 import MdEditor from 'react-markdown-editor-lite';
-import MarkdownIt from 'markdown-it';
+import MarkdownIt from 'markdown-it'
 
 import BasePage from '@/components/BasePage';
 
 import ArticleService from '@/domains/article/ArticleService';
-import { ArticleResponse } from '@/domains/article/interface';
 
 import './CreateArticle.less';
+import { HOST } from '@/domains/basic/constants';
 
 const { TextArea } = Input;
 const formItemLayout = {
@@ -43,11 +44,11 @@ const mdEditorConfig = {
   }
 };
 
-interface CreateArticleProps {
-};
+interface CreateArticleProps extends RouteComponentProps {};
 interface CreateArticleState {
   mode: 'preview' | 'write',     // 模式：预览还是编辑
   title: string;
+  cover?: string;
   markdown: string;
   description?: string;
 };
@@ -65,9 +66,16 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
     typographer: true,
   });
 
-  handleFinish = (values: Store) => {
-    ArticleService.createArticle(values).then((res: ArticleResponse) => {
+  handleFinish = () => {
+    const { title, description, markdown } = this.state;
 
+    ArticleService.createArticle({
+      title,
+      description,
+      markdown,
+    }).then(() => {
+      message.success('创建成功');
+      this.props.history.push('/article/manage');
     })
   }
 
@@ -87,8 +95,24 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
     return this.mdParser.render(text);
   }
 
+  handleUpload = (Blob: RcFile, FileList: RcFile[]) => {
+    const { name } = Blob;
+    var formData = new FormData();
+    formData.append('file', Blob);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `${HOST}/article/upload`);
+    xhr.onload = () => {
+      this.setState({
+        cover: `${HOST}/public/${name}`
+      })
+    }
+    xhr.send(formData);
+    
+    return false;
+  }
+
   render() {
-    const { mode, markdown } = this.state;
+    const { mode, markdown, cover } = this.state;
     return (
       <BasePage
         firstRoute={{
@@ -128,6 +152,25 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
                 placeholder="请输入文章简介"
                 onChange={this.handleChangeDesc}
               ></TextArea>
+            </Form.Item>
+            <Form.Item
+              label="文章封面"
+              {...formItemLayout}
+            >
+              <Upload
+                // action={`${HOST}/article/upload`}
+                className="article-cover-upload"
+                beforeUpload={this.handleUpload}
+              >
+                <Choose>
+                  <When condition={!!cover}>
+                    <img src={cover} alt="cover"/>
+                  </When>
+                  <Otherwise>
+                    <span>+</span>
+                  </Otherwise>
+                </Choose>
+              </Upload>
             </Form.Item>
             <Form.Item
               label="文章内容"

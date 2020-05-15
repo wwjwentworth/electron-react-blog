@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Input, Form, DatePicker, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { LikeOutlined, CommentOutlined } from '@ant-design/icons';
 
 import BasePage from '@/components/BasePage';
 import { Article } from '@/domains/article/interface';
@@ -10,8 +10,7 @@ import ArticleService from '@/domains/article/ArticleService';
 import './ArticleManage.less';
 
 const { Search } = Input;
-
-
+const defaultArticleCover = 'http://templates.thememodern.com/compact/images/news/1.jpg';
 interface Column {
   key: string;
   dataIndex: any;
@@ -105,8 +104,12 @@ class ArticlePage extends React.Component<ArticlePageProps, ArticlePageState> {
                 style={{width: '312px'}}
               />
             </Form.Item>
-
             <Button type="primary">重置</Button>
+            <Button
+              type="dashed"
+              onClick={this.handleCreateArticle}
+              style={{ marginLeft: '8px' }}
+            >新增文章</Button>
           </Form>
         </div>
         <div className="content-section">
@@ -115,26 +118,28 @@ class ArticlePage extends React.Component<ArticlePageProps, ArticlePageState> {
               dataSource.map((article, index) => {
                 return (
                   <div className="article-list__item" key={`articl_${index}`}>
-                    <div className="article-cover"></div>
+                    <img
+                      className="article-cover"
+                      src={article.cover || defaultArticleCover}
+                      alt=""
+                    />
                     <div className="article-title">{article.title}</div>
-                    <div className="article-like"></div>
-                    <div className="article-desc">{article.title}</div>
+                    <div className="article-action">
+                      <div className="action-like article-action__item">
+                        <LikeOutlined /> 
+                        <span>100</span>
+                      </div>
+                      <div className="action-comment article-action__item">
+                        <CommentOutlined />
+                        <span>300</span>
+                      </div>
+                    </div>
+                    <div className="article-desc">{article.description}</div>
                   </div>
                 )
               })
             }
-            <div
-              className="add-new-article article-list__item"
-              onClick={this.handleCreateArticle}
-            >
-              <PlusOutlined />
-            </div>
           </div>
-          {/* <Table
-            rowKey={"_id"}
-            dataSource={dataSource}
-            columns={this.getColumns()}
-          /> */}
         </div>
       </div>
       </BasePage>

@@ -2,7 +2,7 @@
  * @Author: 吴文洁
  * @Date: 2020-05-13 11:05:36
  * @LastEditors: 吴文洁
- * @LastEditTime: 2020-05-14 16:31:50
+ * @LastEditTime: 2020-05-15 14:23:12
  * @Description: 
  */
 
@@ -67,12 +67,13 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
   });
 
   handleFinish = () => {
-    const { title, description, markdown } = this.state;
-
+    const { title, description, markdown, cover } = this.state;
+    console.log(cover, 22)
     ArticleService.createArticle({
       title,
-      description,
+      cover,
       markdown,
+      description,
     }).then(() => {
       message.success('创建成功');
       this.props.history.push('/article/manage');
@@ -102,9 +103,10 @@ class CreateArticle extends React.Component<CreateArticleProps, CreateArticleSta
     const xhr = new XMLHttpRequest();
     xhr.open('POST', `${HOST}/article/upload`);
     xhr.onload = () => {
+      console.log(222)
       this.setState({
         cover: `${HOST}/public/${name}`
-      })
+      });
     }
     xhr.send(formData);
     

@@ -2,9 +2,8 @@
  * @Author: 吴文洁
  * @Date: 2020-05-11 15:59:02
  * @LastEditors: 吴文洁
- * @LastEditTime: 2020-05-11 16:00:28
+ * @LastEditTime: 2020-09-09 11:45:48
  * @Description: 
- * @Copyrigh: © 2020 杭州杰竞科技有限公司 版权所有
  */
 
 import React from 'react';

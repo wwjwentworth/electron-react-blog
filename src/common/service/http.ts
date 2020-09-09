@@ -5,7 +5,6 @@
  * @LastEditors: 吴文洁
  * @Description: 接口请求
  * @FilePath: /wheat-web-demo/src/common/service/http.ts
- * @Copyright © 2020 杭州杰竞科技有限公司 版权所有
  */
 import _ from 'underscore';
 

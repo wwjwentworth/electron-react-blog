@@ -5,7 +5,6 @@
  * @LastEditors: 陈剑宇
  * @Description: RootRoutes
  * @FilePath: /wheat-web-demo/src/routes/RootRoutes.tsx
- * @Copyright © 2020 杭州杰竞科技有限公司 版权所有
  */
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';

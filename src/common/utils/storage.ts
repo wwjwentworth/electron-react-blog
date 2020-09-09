@@ -1,11 +1,10 @@
 /*
  * @Author: 陈剑宇
  * @Date: 2020-05-01 22:19:24
- * @LastEditTime: 2020-05-04 14:12:48
- * @LastEditors: 陈剑宇
+ * @LastEditTime: 2020-09-09 11:45:41
+ * @LastEditors: 吴文洁
  * @Description: storage
  * @FilePath: /wheat-web-demo/src/common/js/storage.ts
- * @Copyright © 2020 杭州杰竞科技有限公司 版权所有
  */
 import { XMStorageImplements } from '@/domains/basic/interface';
 

@@ -5,7 +5,6 @@
  * @LastEditors: 陈剑宇
  * @Description: 网关数据存储
  * @FilePath: /wheat-web-demo/src/common/js/g_storage.ts
- * @Copyright © 2020 杭州杰竞科技有限公司 版权所有
  */
 
 import XMStorage from '@/common/utils/storage';

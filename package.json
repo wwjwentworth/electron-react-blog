@@ -30,7 +30,7 @@
     "react-router-dom": "^5.1.2",
     "semver": "6.3.0",
     "typescript": "~3.7.2",
-    "underscore": "^1.10.2"
+    "underscore": "^1.12.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
